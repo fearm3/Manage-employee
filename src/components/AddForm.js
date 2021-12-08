@@ -16,7 +16,7 @@ const AddForm = () => {
       </Form.Group>
 
       <Form.Group>
-        <Form.Control type="number" placeholder="Phone" required />
+        <Form.Control type="text" placeholder="Phone" required />
       </Form.Group>
 
       <Button variant="success" type="submit" block>

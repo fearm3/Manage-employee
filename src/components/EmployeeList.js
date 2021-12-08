@@ -3,11 +3,11 @@ import Employee from "./Employee";
 import { EmployeeContext } from "../contexts/EmployeeContext";
 import { Button, Modal } from "react-bootstrap";
 import AddForm from "./AddForm";
-import "../index.css";
+
 const EmployeeList = () => {
   const { employees } = useContext(EmployeeContext);
 
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
