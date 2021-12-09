@@ -26,6 +26,13 @@ const AddForm = () => {
     e.preventDefault();
     addEmployee(name, email, address, phone);
   };
+
+  // useEffect(() => {
+  //   console.log("Component Mounted");
+  //   return () => {
+  //     console.log("Component unMount");
+  //   };
+  // }, []);
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group>
