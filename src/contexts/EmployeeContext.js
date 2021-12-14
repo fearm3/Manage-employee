@@ -46,6 +46,8 @@ const EmployeeContextProvider = (props) => {
     setEmployees([...employees, { id: uuidv4(), name, email, address, phone }]);
   };
 
+  // const sortedEmployees = employees.sort((a, b) => (a.name < b.name ? -1 : 1)); //sıralama için.
+
   const deleteEmployee = (id) => {
     setEmployees(employees.filter((employee) => employee.id !== id));
   };
