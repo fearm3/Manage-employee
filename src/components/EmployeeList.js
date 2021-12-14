@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useState } from "react"; //useRef ekle
 import Employee from "./Employee";
 import { EmployeeContext } from "../contexts/EmployeeContext";
 import { Button, Modal } from "react-bootstrap";
@@ -16,12 +16,12 @@ const EmployeeList = () => {
     handleClose();
   }, [employees]);
 
-  const myRef = useRef(null);
-  console.log(myRef.current);
-  const onButtonClick = () => {
-    console.log(myRef.current);
-    myRef.current.focus();
-  };
+  // const myRef = useRef(null);
+  // console.log(myRef.current);
+  // const onButtonClick = () => {
+  //   console.log(myRef.current);
+  //   myRef.current.focus();
+  // };
 
   return (
     <>
@@ -55,7 +55,11 @@ const EmployeeList = () => {
           </tr>
         </thead>
         <tbody>
-          <Employee employees={employees} />
+          {employees.map((employee) => (
+            <tr key={employee.id}>
+              <Employee employee={employee} />
+            </tr>
+          ))}
         </tbody>
       </table>
       <Modal show={show} onHide={handleClose}>
@@ -73,8 +77,8 @@ const EmployeeList = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <input ref={myRef} type="text" />
-      <button onClick={onButtonClick}>Focus Input</button>
+      {/* <input ref={myRef} type="text" />
+      <button onClick={onButtonClick}>Focus Input</button> */}
     </>
   );
 };

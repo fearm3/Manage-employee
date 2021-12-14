@@ -177,3 +177,6 @@ table.table .avatar {
 .modal form label {
   font-weight: normal;
 }
+.formgroup {
+  margin-bottom: 10px;
+}
