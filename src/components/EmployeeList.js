@@ -13,7 +13,7 @@ const EmployeeList = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // const handleShowAlert = () => setShowAlert(true);
+  //* const handleShowAlert = () => setShowAlert(true);
 
   const handleShowAlert = () => {
     setShowAlert(true);
