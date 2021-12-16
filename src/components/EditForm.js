@@ -1,69 +1,68 @@
-import { Button, Form } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { EmployeeContext } from "../contexts/EmployeeContext";
 import { useContext, useState } from "react";
 
 const EditForm = ({ theEmployee }) => {
-  const { updateEmployee } = useContext(EmployeeContext);
+  const { dispatch } = useContext(EmployeeContext);
 
   const employee = theEmployee;
-
   const id = employee.id;
 
-  const [name, setName] = useState(employee.name);
-  const [email, setEmail] = useState(employee.email);
-  const [address, setAddress] = useState(employee.address);
-  const [phone, setPhone] = useState(employee.phone);
+  const [name, SetName] = useState(employee.name);
+  const [email, SetEmail] = useState(employee.email);
+  const [address, SetAddress] = useState(employee.address);
+  const [phone, SetPhone] = useState(employee.phone);
 
   const updatedEmployee = { id, name, email, address, phone };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateEmployee(id, updatedEmployee);
+    //updateEmployee(id, updatedEmployee);
+    dispatch({ type: "update_employee", id, updatedEmployee });
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group className="formgroup">
+      <Form.Group>
         <Form.Control
           type="text"
           placeholder="Name *"
-          required
           name="name"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => SetName(e.target.value)}
+          required
         />
       </Form.Group>
 
-      <Form.Group className="formgroup">
+      <Form.Group>
         <Form.Control
           type="email"
           placeholder="Email *"
-          required
-          value={email}
           name="email"
-          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          onChange={(e) => SetEmail(e.target.value)}
+          required
         />
       </Form.Group>
 
-      <Form.Group className="formgroup">
+      <Form.Group>
         <Form.Control
           as="textarea"
-          placeholder="Addres *"
+          placeholder="Address *"
+          name="address"
           rows={3}
           value={address}
-          name="address"
-          onChange={(e) => setAddress(e.target.value)}
+          onChange={(e) => SetAddress(e.target.value)}
         />
       </Form.Group>
 
-      <Form.Group className="formgroup">
+      <Form.Group>
         <Form.Control
           type="text"
           placeholder="Phone"
-          required
           name="phone"
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={(e) => SetPhone(e.target.value)}
         />
       </Form.Group>
 

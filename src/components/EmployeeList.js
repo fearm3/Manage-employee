@@ -40,6 +40,8 @@ const EmployeeList = () => {
   );
   const totalPagesNum = Math.ceil(sortedEmployees.length / employeesPerPage);
 
+  
+
   return (
     <>
       <div className="table-title">
