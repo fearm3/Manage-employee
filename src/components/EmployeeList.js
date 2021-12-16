@@ -11,7 +11,7 @@ const EmployeeList = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [show, setShow] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [employeesPerPage] = useState(2);
+  const [employeesPerPage] = useState(5);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -40,7 +40,20 @@ const EmployeeList = () => {
   );
   const totalPagesNum = Math.ceil(sortedEmployees.length / employeesPerPage);
 
-  
+  /*     const reducer = (state, action) => {
+        switch(action.type) {
+            case 'increment':
+                return {count: state.count + 1 }
+            
+            case 'decrement':
+                return {count: state.count - 1 }
+            default:
+                throw new Error();
+        }
+    } */
+
+  /*     const initialState ={ count: 0};
+    const [state, dispatch] = useReducer(reducer, initialState) */
 
   return (
     <>
@@ -93,6 +106,10 @@ const EmployeeList = () => {
         currentEmployees={currentEmployees}
         sortedEmployees={sortedEmployees}
       />
+
+      {/*         Count : {state.count}
+        <button onClick= {()=> dispatch({type: 'increment'})}>+</button>
+        <button onClick= {()=> dispatch({type: 'decrement'})}>-</button> */}
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header className="modal-header" closeButton>
