@@ -1,38 +1,44 @@
-import { useContext, useEffect, useState } from "react"; //useRef ekle
+import { useContext, useEffect, useState } from "react";
 import Employee from "./Employee";
-import { EmployeeContext } from "../contexts/EmployeeContext";
 import { Button, Modal, Alert } from "react-bootstrap";
+import { EmployeeContext } from "../contexts/EmployeeContext";
 import AddForm from "./AddForm";
 import Pagination from "./Pagination";
 
 const EmployeeList = () => {
-  const { employees } = useContext(EmployeeContext);
+  const { sortedEmployees } = useContext(EmployeeContext);
 
   const [showAlert, setShowAlert] = useState(false);
   const [show, setShow] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [employeesPerPage] = useState(2);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  //* const handleShowAlert = () => setShowAlert(true);
+  //const handleShowAlert = () => setShowAlert(true);
 
   const handleShowAlert = () => {
     setShowAlert(true);
     setTimeout(() => {
       setShowAlert(false);
-    }, 3000); //3saniye sonra kapansın.
+    }, 2000);
   };
+
   useEffect(() => {
     handleClose();
-    return () => handleShowAlert();
-  }, [employees]);
 
-  // const myRef = useRef(null);
-  // console.log(myRef.current);
-  // const onButtonClick = () => {
-  //   console.log(myRef.current);
-  //   myRef.current.focus();
-  // };
+    return () => {
+      handleShowAlert();
+    };
+  }, [sortedEmployees]);
+
+  const indexOfLastEmployee = currentPage * employeesPerPage;
+  const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
+  const currentEmployees = sortedEmployees.slice(
+    indexOfFirstEmployee,
+    indexOfLastEmployee
+  );
+  const totalPagesNum = Math.ceil(sortedEmployees.length / employeesPerPage);
 
   return (
     <>
@@ -57,7 +63,7 @@ const EmployeeList = () => {
       </div>
 
       <Alert show={showAlert} variant="success">
-        Employee List successfullyupdated!
+        Employee List successfully updated!.
       </Alert>
 
       <table className="table table-striped table-hover">
@@ -71,38 +77,40 @@ const EmployeeList = () => {
           </tr>
         </thead>
         <tbody>
-          {employees
-            .sort((a, b) => (a.name < b.name ? -1 : 1))
-            .map((employee) => (
-              <tr key={employee.id}>
-                <Employee employee={employee} />
-              </tr>
-            ))}
+          {currentEmployees.map((employee) => (
+            <tr key={employee.id}>
+              <Employee employee={employee} />
+            </tr>
+          ))}
         </tbody>
       </table>
-      <Pagination />
+
+      <Pagination
+        pages={totalPagesNum}
+        setCurrentPage={setCurrentPage}
+        currentEmployees={currentEmployees}
+        sortedEmployees={sortedEmployees}
+      />
+
       <Modal show={show} onHide={handleClose}>
         <Modal.Header className="modal-header" closeButton>
           <Modal.Title>Add Employee</Modal.Title>
         </Modal.Header>
-
         <Modal.Body>
           <AddForm />
         </Modal.Body>
-
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close Modal
           </Button>
         </Modal.Footer>
       </Modal>
-      {/* <input ref={myRef} type="text" />
-      <button onClick={onButtonClick}>Focus Input</button> */}
     </>
   );
 };
 
 export default EmployeeList;
-//*Sıralama
-//* .sort((a, b) => a.name.localeCompare(b.name))
-// .sort((a, b) => (a.name < b.name ? -1 : 1)) A-Z ye
+
+// .sort((a,b) => a.name.localeCompare(b.name))
+
+// sort((a,b) => (a.name < b.name ? -1 : 1 ))

@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 export const EmployeeContext = createContext();
@@ -42,11 +42,20 @@ const EmployeeContextProvider = (props) => {
     },
   ]);
 
+  useEffect(() => {
+    const employees = localStorage.getItem("employees");
+    setEmployees(JSON.parse(employees));
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("employees", JSON.stringify(employees));
+  });
+  //const sortedEmployees = employees.sort((a,b) => (a.name < b.name ? -1 : 1 ));
+  const sortedEmployees = employees.sort((a, b) => (a.name < b.name ? -1 : 1));
+
   const addEmployee = (name, email, address, phone) => {
     setEmployees([...employees, { id: uuidv4(), name, email, address, phone }]);
   };
-
-  // const sortedEmployees = employees.sort((a, b) => (a.name < b.name ? -1 : 1)); //sıralama için.
 
   const deleteEmployee = (id) => {
     setEmployees(employees.filter((employee) => employee.id !== id));
@@ -59,9 +68,10 @@ const EmployeeContextProvider = (props) => {
       )
     );
   };
+
   return (
     <EmployeeContext.Provider
-      value={{ employees, addEmployee, deleteEmployee, updateEmployee }}
+      value={{ sortedEmployees, addEmployee, deleteEmployee, updateEmployee }}
     >
       {props.children}
     </EmployeeContext.Provider>
