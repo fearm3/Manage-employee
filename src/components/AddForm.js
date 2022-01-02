@@ -38,7 +38,7 @@ const AddForm = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className="formgroup">
       <Form.Group>
         <Form.Control
           type="text"

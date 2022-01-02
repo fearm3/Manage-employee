@@ -112,7 +112,7 @@ const EmployeeList = () => {
         <button onClick= {()=> dispatch({type: 'decrement'})}>-</button> */}
 
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header className="modal-header" closeButton>
+        <Modal.Header className="modal-header " closeButton>
           <Modal.Title>Add Employee</Modal.Title>
         </Modal.Header>
         <Modal.Body>
